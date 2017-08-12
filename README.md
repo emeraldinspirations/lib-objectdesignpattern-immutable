@@ -12,7 +12,7 @@ This project has no dependencies, so can be cloned directly from the [git repo](
 ## Require with Composer
 
 ```shell
-composer require emeraldinspirations/lib-valueobject-dateinterval
+composer require emeraldinspirations/lib-objectdesignpattern-immutable
 ```
 
 ## Example
