@@ -5,15 +5,26 @@
 
 Functions that are common in immutable objects
 
-# Example
+## Installing / Getting started
+
+This project has no dependencies, so can be cloned directly from the [git repo](https://github.com/emeraldinspirations/lib-objectdesignpattern-immutable) or required with [Composer](https://getcomposer.org/).
+
+## Require with Composer
+
+```shell
+composer require emeraldinspirations/lib-valueobject-dateinterval
+```
+
+## Example
 
 ```php
 <?php
 
-use emeraldinspirations\library\objectDesignPattern\immutable\Immutable;
+use emeraldinspirations\library\objectDesignPattern\immutable\ImmutableTrait;
 
 class ExampleImmutableObject
 {
+    use ImmutableTrait;
 
     protected $Property;
 
@@ -35,7 +46,7 @@ class ExampleImmutableObject
      * @return self
      */
     public function withProperty(\stdclass $Property) : self {
-        return Immutable::withGeneric($this, __FUNCTION__, $Property);
+        return self::withGeneric(__FUNCTION__, $Property);
     }
 
     /**
@@ -49,9 +60,10 @@ class ExampleImmutableObject
         // Create an array of references to properties to clone
         $PropertiesToByCloned = [
             &$this->Property,
+        //  ^ - IMPORTANT: Be sure to pass by reference
         ];
 
-        Immutable::cloneArrayRecursively($PropertiesToByCloned);
+        ImmutableTrait::cloneArrayRecursively($PropertiesToByCloned);
 
     }
 
@@ -59,12 +71,12 @@ class ExampleImmutableObject
 ```
 
 
-# Contributing
+## Contributing
 
 If you'd like to contribute, please fork the repository and use a feature branch.
 
 I am also open to feedback about how well I am being compliant with standards and "best practices." I have written software solo for years, and am trying to learn how to work better with others.
 
-# Licensing
+## Licensing
 
 The code in this project is licensed under [MIT license](./LICENSE).
