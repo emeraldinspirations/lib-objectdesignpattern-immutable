@@ -26,8 +26,37 @@ namespace emeraldinspirations\library\objectDesignPattern\immutable;
  * @version   GIT: $Id: f627306671268e7a24c3809def44b16abd93065a $ In Development.
  * @link      https://github.com/emeraldinspirations/lib-objectdesignpattern-immutable
  */
-class ImmutableTest extends \PHPUnit_Framework_TestCase
+class ImmutableTraitTest extends \PHPUnit_Framework_TestCase
 {
+
+    protected $Object;
+
+    /**
+     * Run before each test
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+
+        $this->Object = new class() {
+            use ImmutableTrait;
+
+            protected $Property = [];
+
+            /**
+             * Return value of Property
+             *
+             * @return array
+             */
+            public function getProperty() : array
+            {
+                return $this->Property;
+            }
+
+        };
+
+    }
 
     /**
      * Verify property name returned when with... function name passed
@@ -40,7 +69,7 @@ class ImmutableTest extends \PHPUnit_Framework_TestCase
         $PropertyName = microtime();
         $this->assertEquals(
             $PropertyName,
-            Immutable::getPropertyFromFunctionName('with'.$PropertyName),
+            ImmutableTrait::getPropertyFromFunctionName('with'.$PropertyName),
             'Fails if function doesn\'t exist or returns wrong value'
         );
 
@@ -53,29 +82,32 @@ class ImmutableTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithGeneric()
     {
-        $Key    = 'Key' . str_replace([' ', '.'], ['', ''], microtime());
-        $Value1 = 'Value' . microtime();
+
+        $Key = 'Key' . microtime();
+
         $Value2 = 'Value' . microtime();
 
-        $GenericObject       = new \stdclass();
-        $GenericObject->$Key = $Value1;
-
-        $GenericClone = Immutable::withGeneric(
-            $GenericObject,
-            'with'.$Key,
-            $Value2
+        $Clone = $this->Object->with(
+            'withProperty',
+            [$Key => $Value2]
         );
 
         $this->assertNotSame(
-            $GenericObject,
-            $GenericClone,
+            $this->Object,
+            $Clone,
             'Fails if object not cloned'
         );
 
         $this->assertEquals(
-            $Value2,
-            $GenericClone->$Key,
+            [$Key=>$Value2],
+            $Clone->getProperty(),
             'Fails if property not updated'
+        );
+
+        $this->assertNotEquals(
+            [$Key=>$Value2],
+            $this->Object->getProperty(),
+            'Fails if old property updated'
         );
 
     }
@@ -109,7 +141,7 @@ class ImmutableTest extends \PHPUnit_Framework_TestCase
 
         $ArrayCopy = $OriginalArray;
 
-        Immutable::cloneArrayRecursively($ArrayCopy);
+        ImmutableTrait::cloneArrayRecursively($ArrayCopy);
 
         $this->assertEquals(
             $OriginalArray,

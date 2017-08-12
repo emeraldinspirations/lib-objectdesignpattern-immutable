@@ -26,7 +26,7 @@ namespace emeraldinspirations\library\objectDesignPattern\immutable;
  * @version   GIT: $Id: f627306671268e7a24c3809def44b16abd93065a $ In Development.
  * @link      https://github.com/emeraldinspirations/lib-objectdesignpattern-immutable
  */
-class Immutable
+trait ImmutableTrait
 {
 
     /**
@@ -44,19 +44,17 @@ class Immutable
     /**
      * Clone the object and set the value per the with... function name
      *
-     * @param object  $ImmutableObject Object to clone and update
      * @param string  $WithFunction    The name of the with... function
      * @param various $Value           The value to set
      *
      * @return object Cloned and updated object
      */
-    static function withGeneric(
-        $ImmutableObject,
+    public function with(
         string $WithFunction,
         $Value
-    ) {
+    ) : self {
 
-        $Return                = clone $ImmutableObject;
+        $Return                = clone $this;
         $PropertyName          =
             self::getPropertyFromFunctionName($WithFunction);
         $Return->$PropertyName = $Value;
