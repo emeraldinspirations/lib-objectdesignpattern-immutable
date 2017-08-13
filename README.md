@@ -46,7 +46,7 @@ class ExampleImmutableObject
      * @return self
      */
     public function withProperty(\stdclass $Property) : self {
-        return self::withGeneric(__FUNCTION__, $Property);
+        return $this->with(__FUNCTION__, $Property);
     }
 
     /**
@@ -63,7 +63,7 @@ class ExampleImmutableObject
         //  ^ - IMPORTANT: Be sure to pass by reference
         ];
 
-        ImmutableTrait::cloneArrayRecursively($PropertiesToByCloned);
+        self::cloneArrayRecursively($PropertiesToByCloned);
 
     }
 
