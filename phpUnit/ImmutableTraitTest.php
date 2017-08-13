@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Container for unit tests for Vevent entity
+ * Container for unit tests for Immutable trait
  *
  * PHP Version 7
  *
@@ -16,14 +16,14 @@
 namespace emeraldinspirations\library\objectDesignPattern\immutable;
 
 /**
- * Unit tests for Vevent entity
+ * Unit tests for Immutable trait
  *
  * @category  Library
  * @package   Lib-objectdesignpattern-immutable
  * @author    Matthew "Juniper" Barlett <emeraldinspirations@gmail.com>
  * @copyright 2017 Matthew "Juniper" Barlett <emeraldinspirations@gmail.com>
  * @license   MIT ../LICENSE.md
- * @version   GIT: $Id: f627306671268e7a24c3809def44b16abd93065a $ In Development.
+ * @version   GIT: $Id$ In Development.
  * @link      https://github.com/emeraldinspirations/lib-objectdesignpattern-immutable
  */
 class ImmutableTraitTest extends \PHPUnit_Framework_TestCase

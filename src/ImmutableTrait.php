@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Container for unit tests for Vevent entity
+ * Container for Immutable trait
  *
  * PHP Version 7
  *
@@ -16,14 +16,14 @@
 namespace emeraldinspirations\library\objectDesignPattern\immutable;
 
 /**
- * Unit tests for Vevent entity
+ * Immutable trait
  *
  * @category  Library
  * @package   Lib-objectdesignpattern-immutable
  * @author    Matthew "Juniper" Barlett <emeraldinspirations@gmail.com>
  * @copyright 2017 Matthew "Juniper" Barlett <emeraldinspirations@gmail.com>
  * @license   MIT ../LICENSE.md
- * @version   GIT: $Id: f627306671268e7a24c3809def44b16abd93065a $ In Development.
+ * @version   GIT: $Id$ In Development.
  * @link      https://github.com/emeraldinspirations/lib-objectdesignpattern-immutable
  */
 trait ImmutableTrait
@@ -44,8 +44,8 @@ trait ImmutableTrait
     /**
      * Clone the object and set the value per the with... function name
      *
-     * @param string  $WithFunction    The name of the with... function
-     * @param various $Value           The value to set
+     * @param string $WithFunction The name of the with... function
+     * @param mixed  $Value        The value to set
      *
      * @return object Cloned and updated object
      */
@@ -54,9 +54,10 @@ trait ImmutableTrait
         $Value
     ) : self {
 
+        $PropertyName
+            = self::getPropertyFromFunctionName($WithFunction);
+
         $Return                = clone $this;
-        $PropertyName          =
-            self::getPropertyFromFunctionName($WithFunction);
         $Return->$PropertyName = $Value;
 
         return $Return;
