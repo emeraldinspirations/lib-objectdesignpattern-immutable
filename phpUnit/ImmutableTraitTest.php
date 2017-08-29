@@ -54,6 +54,16 @@ class ImmutableTraitTest extends \PHPUnit_Framework_TestCase
                 return $this->Property;
             }
 
+            /**
+             * Return if Property is set
+             *
+             * @return bool
+             */
+            public function hasProperty() : bool
+            {
+                return isset($this->Property);
+            }
+
         };
 
     }
@@ -86,6 +96,46 @@ class ImmutableTraitTest extends \PHPUnit_Framework_TestCase
         $Key = 'Key' . microtime();
 
         $Value2 = 'Value' . microtime();
+
+        $this->Object = $this->Object->with(
+            'withProperty',
+            [$Key => $Value2]
+        );
+
+        $Clone = $this->Object->without(
+            'withoutProperty'
+        );
+        // Fails if function undefined
+
+        $this->assertNotSame(
+            $this->Object,
+            $Clone,
+            'Fails if object not cloned'
+        );
+
+        $this->assertFalse(
+            $Clone->hasProperty(),
+            'Fails if property not updated'
+        );
+
+        $this->assertTrue(
+            $this->Object->hasProperty(),
+            'Fails if old property updated'
+        );
+
+    }
+
+    /**
+     * Verify object cloned and property value changed
+     *
+     * @return void
+     */
+    public function testWithoutGeneric()
+    {
+
+        $Key = 'Key';
+
+        $Value2 = 'Value';
 
         $Clone = $this->Object->with(
             'withProperty',

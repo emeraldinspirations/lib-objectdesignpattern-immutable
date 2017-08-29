@@ -64,6 +64,24 @@ trait ImmutableTrait
     }
 
     /**
+     * Clone the object and unset the value per the without... function name
+     *
+     * @param string $WithoutFunction The name of the without... function
+     *
+     * @return object Cloned and updated object
+     */
+    public function without(
+        string $WithoutFunction
+    ) : self {
+
+        $PropertyName = substr($WithoutFunction, 7);
+        $Return       = clone $this;
+        unset($Return->$PropertyName);
+
+        return $Return;
+    }
+
+    /**
      * Clone specified properties as neccessary
      *
      * Pass an array of references to the properties in the immutable class
