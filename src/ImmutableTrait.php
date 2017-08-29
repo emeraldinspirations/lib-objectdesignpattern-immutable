@@ -118,7 +118,7 @@ trait ImmutableTrait
      * This function does violate the Liskov substitution principle.  However
      * this is neccessary as PHP 7 does not yet have a Read Only object type.
      *
-     * @param string $Name  The name of the property to unset
+     * @param string $Name The name of the property to unset
      *
      * @throws \BadFunctionCallException Object is immutable
      *
@@ -127,12 +127,12 @@ trait ImmutableTrait
      *
      * @return void
      */
-    public function __unset (string $Name)
+    public function __unset(string $Name)
     {
         throw new \BadFunctionCallException(
             'Unable to unset property in immutable object',
             1504013024
         );
     }
-    
+
 }
