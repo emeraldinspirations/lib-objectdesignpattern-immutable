@@ -163,4 +163,30 @@ class ImmutableTraitTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * Verify __set magic method throws exception
+     *
+     * @expectedException     \BadFunctionCallException
+     * @expectedExceptionCode 1504012134
+     *
+     * @return void
+     */
+    public function testSetMagicMethod()
+    {
+        $this->Object->UndefinedProperty = 'NewValue';
+    }
+
+    /**
+     * Verify __unset magic method throws exception
+     *
+     * @expectedException     \BadFunctionCallException
+     * @expectedExceptionCode 1504013024
+     *
+     * @return void
+     */
+    public function testUnsetMagicMethod()
+    {
+        unset($this->Object->UndefinedProperty);
+    }
+
 }
